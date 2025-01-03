@@ -9,7 +9,7 @@ function _fish_eza_install --on-event fish-eza_install
         end
     end
 
-    # # Handle dumb terminal case
+    # Handle dumb terminal case
     if test "$TERM" = dumb
         echo "you are sourcing the fish plugin for eza"
         echo "in a dumb terminal, which won't support it"
