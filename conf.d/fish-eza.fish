@@ -1,14 +1,4 @@
 function _fish_eza_install --on-event fish-eza_install
-    # Automatically run `ls` when `$eza_run_on_cd` is set
-    function _auto_ls --on-variable PWD
-        if set -q eza_run_on_cd
-            # argv is overridden by parent function
-            # so we spread ...$eza_params over local
-            # _ls ...$params
-            _ls $eza_params
-        end
-    end
-
     # Handle dumb terminal case
     if test "$TERM" = dumb
         echo "you are sourcing the fish plugin for eza"
@@ -18,16 +8,28 @@ function _fish_eza_install --on-event fish-eza_install
     end
 
     if command -q eza
+
+        # Automatically run `ls` when `$eza_run_on_cd` is set
+        function _auto_ls --on-variable PWD
+            if set -q eza_run_on_cd
+                # argv is overridden by parent function
+                # so we spread ...$eza_params over local
+                # _ls ...$params
+                _ls $eza_params
+            end
+        end
+
         function _ls
-            set -lx params --git \
-                --icons \
-                --group \
-                --group-directories-first \
-                --time-style=long-iso \
-                --color-scale=all
 
             if set -q eza_params
                 set -lx params $eza_params
+            else
+                set -lx params --git \
+                    --icons \
+                    --group \
+                    --group-directories-first \
+                    --time-style=long-iso \
+                    --color-scale=all
             end
 
             eza $argv $params
