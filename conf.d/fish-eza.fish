@@ -1,3 +1,17 @@
+# Automatically run `ls` when `$eza_run_on_cd` is set
+# Not using --on-variable PWD hook because it wasn't
+# working consistently
+function _auto_ls --on-event fish_postexec
+    if set -q eza_run_on_cd
+        set -q _eza_last_dir; or set -g _eza_last_dir $PWD
+
+        test "$PWD" = "$_eza_last_dir"; and return 0
+        set _eza_last_dir $PWD
+
+        _ls
+    end
+end
+
 function _fish_eza_install --on-event fish-eza_install
     # Handle dumb terminal case
     if test "$TERM" = dumb
@@ -9,32 +23,7 @@ function _fish_eza_install --on-event fish-eza_install
 
     if command -q eza
 
-        # Automatically run `ls` when `$eza_run_on_cd` is set
-        function _auto_ls --on-variable PWD
-            if set -q eza_run_on_cd
-                # argv is overridden by parent function
-                # so we spread ...$eza_params over local
-                # _ls ...$params
-                _ls $eza_params
-            end
-        end
-
-        function _ls
-
-            if set -q eza_params
-                set -lx params $eza_params
-            else
-                set -lx params --git \
-                    --icons \
-                    --group \
-                    --group-directories-first \
-                    --time-style=long-iso \
-                    --color-scale=all
-            end
-
-            eza $argv $params
-        end
-
+        # see ../functions/_ls.fish
         alias ls="_ls"
         alias l="_ls --git-ignore"
         alias ll="_ls --all --header --long"
@@ -67,6 +56,8 @@ function _fish_eza_uninstall --on-event fish-eza_uninstall
 
     set --erase eza_params
     set --erase eza_run_on_cd
+
+    set --erase _eza_last_dir
 end
 
 function _fish_eza_update --on-event fish-eza_update
