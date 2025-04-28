@@ -1,6 +1,4 @@
 # Automatically run `ls` when `$eza_run_on_cd` is set
-# Not using --on-variable PWD hook because it wasn't
-# working consistently
 function _auto_ls --on-event fish_postexec
     if set -q eza_run_on_cd
         set -q _eza_last_dir; or set -g _eza_last_dir $PWD
