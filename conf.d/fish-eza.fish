@@ -14,7 +14,7 @@ function _autols --on-event fish_postexec
     end
 end
 
-function _fish_eza_install --on-event fish-fzf_install
+function _fish_eza_install --on-event fish-eza_install
     # Handle dumb terminal case
     if test "$TERM" = dumb
         echo "you are sourcing the fish plugin for eza"
@@ -42,7 +42,7 @@ function _fish_eza_install --on-event fish-fzf_install
     end
 end
 
-function _fish_eza_uninstall --on-event fish-fzf_uninstall
+function _fish_eza_uninstall --on-event fish-eza_uninstall
     functions --erase l
     functions --erase ll
     functions --erase llm
@@ -61,7 +61,7 @@ function _fish_eza_uninstall --on-event fish-fzf_uninstall
     set --erase _eza_last_dir
 end
 
-function _fish_eza_update --on-event fish-fzf_update
+function _fish_eza_update --on-event fish-eza_update
     _fish_eza_uninstall
     _fish_eza_install
 end
