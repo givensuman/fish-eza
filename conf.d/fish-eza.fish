@@ -1,12 +1,9 @@
 # Automatically run `ls` when `$eza_run_on_cd` is set
-function _auto_ls --on-event fish_postexec
-    if set -q eza_run_on_cd
-        set -q _eza_last_dir; or set -g _eza_last_dir $PWD
-
-        test "$PWD" = "$_eza_last_dir"; and return 0
-        set _eza_last_dir $PWD
-
-        _ls
+function _auto_ls --on-variable PWD
+    if status is-interactive
+        if set -q eza_run_on_cd
+            _ls
+        end
     end
 end
 
@@ -20,16 +17,32 @@ function _fish_eza_install --on-event fish-eza_install
     end
 
     if command -q eza
-
         # see ../functions/_ls.fish
-        alias ls="_ls"
-        alias l="_ls --git-ignore"
-        alias ll="_ls --all --header --long"
-        alias llm="_ls --all --header --long --sort=modified"
-        alias la="eza -lbhHigUmuSa" # ignore `$params`
-        alias lx="eza -lbhHigUmuSa@" # ignore `$params`
-        alias lt="_ls --tree"
-        alias tree="_ls --tree"
+        alias ls _ls
+
+        function l --wraps _ls
+            _ls --git-ignore $argv
+        end
+
+        function ll --wraps _ls
+            _ls --all --header --long $argv
+        end
+
+        function llm --wraps _ls
+            _ls --sort=modified $argv
+
+        end
+
+        function lt --wraps _ls
+            _ls --tree --level=2 $argv
+        end
+
+        function tree --wraps _ls
+            _ls --tree $argv
+        end
+
+        alias la 'eza -lbhHigUmuSa'
+        alias lx 'eza -lbhHigUmuSa@'
 
     else # `eza` command not found
         echo "eza is not installed but you're"
@@ -44,18 +57,17 @@ function _fish_eza_uninstall --on-event fish-eza_uninstall
     functions --erase l
     functions --erase ll
     functions --erase llm
-    functions --erase la
-    functions --erase lx
     functions --erase lt
     functions --erase tree
 
-    functions --erase _ls
+    functions --erase la
+    functions --erase lx
+
+    functions --erase ls
     functions --erase _auto_ls
 
     set --erase eza_params
     set --erase eza_run_on_cd
-
-    set --erase _eza_last_dir
 end
 
 function _fish_eza_update --on-event fish-eza_update

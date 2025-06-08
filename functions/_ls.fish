@@ -1,15 +1,16 @@
 # `eza` wrapper with parameter handling
-function _ls
-    if set -q eza_params
-        eza $eza_params $argv
+function _ls --wraps eza
+    if set -q eza_params; and test -n "$eza_params"
+        set -l params (string split ' ' -- $eza_params)
+
+        command eza $params $argv
     else
-        set -lx params --git \
+        command eza --git \
             --icons \
             --group \
             --group-directories-first \
             --time-style=long-iso \
-            --color-scale=all
-
-        eza $params $argv
+            --color-scale=all \
+            $argv
     end
 end
