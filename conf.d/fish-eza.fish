@@ -17,29 +17,8 @@ function _fish_eza_install --on-event fish-eza_install
     end
 
     if command -q eza
-        # see ../functions/_ls.fish
+        # see ../functions/00-ls.fish
         alias ls _ls
-
-        function l --wraps _ls
-            _ls --git-ignore $argv
-        end
-
-        function ll --wraps _ls
-            _ls --all --header --long $argv
-        end
-
-        function llm --wraps _ls
-            _ls --sort=modified $argv
-
-        end
-
-        function lt --wraps _ls
-            _ls --tree --level=2 $argv
-        end
-
-        function tree --wraps _ls
-            _ls --tree $argv
-        end
 
         alias la 'eza -lbhHigUmuSa'
         alias lx 'eza -lbhHigUmuSa@'
