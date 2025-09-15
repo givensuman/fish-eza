@@ -17,7 +17,7 @@ function _fish_eza_install --on-event fish-eza_install
     end
 
     if command -q eza
-        # see ../functions/00-ls.fish
+        # see ../functions/_ls.fish
         alias ls _ls
 
         alias la 'eza -lbhHigUmuSa'
@@ -33,16 +33,10 @@ end
 
 function _fish_eza_uninstall --on-event fish-eza_uninstall
     functions --erase ls
-    functions --erase l
-    functions --erase ll
-    functions --erase llm
-    functions --erase lt
-    functions --erase tree
 
     functions --erase la
     functions --erase lx
 
-    functions --erase ls
     functions --erase _auto_ls
 
     set --erase eza_params
