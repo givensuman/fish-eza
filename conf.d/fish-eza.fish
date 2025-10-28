@@ -21,6 +21,9 @@ alias ls _ls
 alias la 'eza -lbhHigUmuSa'
 alias lx 'eza -lbhHigUmuSa@'
 
+function _fish_eza_install --on-event fish-eza_install
+end
+
 function _fish_eza_uninstall --on-event fish-eza_uninstall
     functions --erase _auto_ls
 
