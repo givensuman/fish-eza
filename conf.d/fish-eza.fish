@@ -15,19 +15,11 @@ if test "$TERM" = dumb
     return 1
 end
 
-if command -q eza
-    # see ../functions/_ls.fish
-    alias ls _ls
+# see ../functions/_ls.fish
+alias ls _ls
 
-    alias la 'eza -lbhHigUmuSa'
-    alias lx 'eza -lbhHigUmuSa@'
-
-else # `eza` command not found
-    echo "eza is not installed but you're"
-    echo "sourcing the fish plugin for it"
-
-    return 1
-end
+alias la 'eza -lbhHigUmuSa'
+alias lx 'eza -lbhHigUmuSa@'
 
 function _fish_eza_uninstall --on-event fish-eza_uninstall
     functions --erase ls
