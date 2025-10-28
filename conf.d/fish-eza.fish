@@ -7,28 +7,26 @@ function _auto_ls --on-variable PWD
     end
 end
 
-function _fish_eza_install --on-event fish-eza_install
-    # Handle dumb terminal case
-    if test "$TERM" = dumb
-        echo "you are sourcing the fish plugin for eza"
-        echo "in a dumb terminal, which won't support it"
+# Handle dumb terminal case
+if test "$TERM" = dumb
+    echo "you are sourcing the fish plugin for eza"
+    echo "in a dumb terminal, which won't support it"
 
-        return 1
-    end
+    return 1
+end
 
-    if command -q eza
-        # see ../functions/_ls.fish
-        alias ls _ls
+if command -q eza
+    # see ../functions/_ls.fish
+    alias ls _ls
 
-        alias la 'eza -lbhHigUmuSa'
-        alias lx 'eza -lbhHigUmuSa@'
+    alias la 'eza -lbhHigUmuSa'
+    alias lx 'eza -lbhHigUmuSa@'
 
-    else # `eza` command not found
-        echo "eza is not installed but you're"
-        echo "sourcing the fish plugin for it"
+else # `eza` command not found
+    echo "eza is not installed but you're"
+    echo "sourcing the fish plugin for it"
 
-        return 1
-    end
+    return 1
 end
 
 function _fish_eza_uninstall --on-event fish-eza_uninstall
