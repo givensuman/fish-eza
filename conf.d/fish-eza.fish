@@ -22,13 +22,7 @@ alias la 'eza -lbhHigUmuSa'
 alias lx 'eza -lbhHigUmuSa@'
 
 function _fish_eza_uninstall --on-event fish-eza_uninstall
-    functions --erase _ls
     functions --erase _auto_ls
-    functions --erase l
-    functions --erase ll
-    functions --erase llm
-    functions --erase lt
-    functions --erase tree
 
     functions --erase ls
     functions --erase la
