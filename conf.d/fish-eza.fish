@@ -7,6 +7,13 @@ function _auto_ls --on-variable PWD
     end
 end
 
+if not command -q eza
+  echo "eza is not installed but you're" 
+  echo "sourcing the fish plugin for it"
+
+  return 1
+end
+
 # Handle dumb terminal case
 if test "$TERM" = dumb
     echo "you are sourcing the fish plugin for eza"
