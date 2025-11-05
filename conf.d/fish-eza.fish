@@ -22,13 +22,12 @@ if test "$TERM" = dumb
     return 1
 end
 
-# see ../functions/_ls.fish
-alias ls _ls
-
-alias la 'eza -lbhHigUmuSa'
-alias lx 'eza -lbhHigUmuSa@'
-
 function _fish_eza_install --on-event fish-eza_install
+    # see ../functions/_ls.fish
+    alias ls _ls
+
+    alias la 'eza -lbhHigUmuSa'
+    alias lx 'eza -lbhHigUmuSa@'
 end
 
 function _fish_eza_uninstall --on-event fish-eza_uninstall
