@@ -22,7 +22,7 @@ if test "$TERM" = dumb
     return 1
 end
 
-# see ../functions/_ls.fish
+# see ../functions/_fish_eza__ls.fish
 alias ls _ls
 
 alias la 'eza -lbhHigUmuSa'
