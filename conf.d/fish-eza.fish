@@ -25,10 +25,10 @@ function _auto_ls --on-variable PWD
 end
 
 if not command -q eza
-  echo "eza is not installed but you're" 
-  echo "sourcing the fish plugin for it"
+    echo "eza is not installed but you're"
+    echo "sourcing the fish plugin for it"
 
-  return 1
+    return 1
 end
 
 # Handle dumb terminal case
@@ -44,6 +44,11 @@ alias ls _ls
 
 alias la 'eza -lbhHigUmuSa'
 alias lx 'eza -lbhHigUmuSa@'
+alias l _fish_eza_l
+alias ll _fish_eza_ll
+alias llm _fish_eza_llm
+alias lt _fish_eza_lt
+alias tree _fish_eza_tree
 
 function _fish_eza_install --on-event fish-eza_install
 end
@@ -51,9 +56,17 @@ end
 function _fish_eza_uninstall --on-event fish-eza_uninstall
     functions --erase _auto_ls
 
+    functions --erase _ls
     functions --erase ls
+
     functions --erase la
     functions --erase lx
+    functions --erase la
+    functions --erase lx
+    functions --erase l
+    functions --erase ll
+    functions --erase llm
+    functions --erase lt
 
     set --erase eza_params
     set --erase eza_run_on_cd
