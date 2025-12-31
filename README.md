@@ -1,3 +1,7 @@
+<div align="center">
+  <img alt="fish-eza" src="./assets/logo.png" width="200" />
+</div>
+
 # fish-eza
 
 Adaptation of [z-shell/zsh-eza](https://github.com/z-shell/zsh-eza) for the Fish shell.
