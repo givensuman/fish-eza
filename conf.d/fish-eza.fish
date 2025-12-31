@@ -1,5 +1,5 @@
 # `eza` wrapper with parameter handling
-function _ls --wraps eza
+function _fish_eza_ls --wraps eza
     if set -q eza_params; and test -n "$eza_params"
         set -l params (string split ' ' -- $eza_params)
 
@@ -16,10 +16,10 @@ function _ls --wraps eza
 end
 
 # Automatically run `ls` when `$eza_run_on_cd` is set
-function _auto_ls --on-variable PWD
+function _fish_eza_auto_ls --on-variable PWD
     if status is-interactive
         if set -q eza_run_on_cd
-            _ls
+            _fish_eza_ls
         end
     end
 end
@@ -40,7 +40,7 @@ if test "$TERM" = dumb
 end
 
 # see ../functions/_fish_eza__ls.fish
-alias ls _ls
+alias ls _fish_eza_ls
 
 alias la 'eza -lbhHigUmuSa'
 alias lx 'eza -lbhHigUmuSa@'
@@ -54,9 +54,9 @@ function _fish_eza_install --on-event fish-eza_install
 end
 
 function _fish_eza_uninstall --on-event fish-eza_uninstall
-    functions --erase _auto_ls
+    functions --erase _fish_eza_auto_ls
 
-    functions --erase _ls
+    functions --erase _fish_eza_ls
     functions --erase ls
 
     functions --erase la
