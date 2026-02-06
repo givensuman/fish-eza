@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Check code
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Fish shell
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fish
+
+      - name: Verify fish syntax
+        run: |
+          for file in $(find . -name "*.fish" -type f); do
+            fish -n "$file" || exit 1
+          done
